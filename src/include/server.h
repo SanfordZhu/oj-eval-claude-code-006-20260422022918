@@ -307,29 +307,30 @@ void ExitGame() {
 void PrintMap() {
   for (int i = 0; i < rows; i++) {
     for (int j = 0; j < columns; j++) {
-      if (visited[i][j]) {
+      if (game_state == 1) {
+        // Victory: show all mines as @
         if (is_mine[i][j]) {
-          std::cout << 'X';
-        } else {
+          std::cout << '@';
+        } else if (visited[i][j]) {
           std::cout << mine_count[i][j];
-        }
-      } else if (marked[i][j]) {
-        if (is_mine[i][j]) {
-          if (game_state == 1) {
-            // Victory: show all mines as @
-            std::cout << '@';
-          } else {
-            std::cout << '@';
-          }
         } else {
-          // Marked non-mine - this should only happen on game over
-          std::cout << 'X';
+          std::cout << '?';
         }
       } else {
-        // Unvisited
-        if (game_state == 1 && is_mine[i][j]) {
-          // Victory: show all mines as @
-          std::cout << '@';
+        // Normal or game over state
+        if (visited[i][j]) {
+          if (is_mine[i][j]) {
+            std::cout << 'X';
+          } else {
+            std::cout << mine_count[i][j];
+          }
+        } else if (marked[i][j]) {
+          if (is_mine[i][j]) {
+            std::cout << '@';
+          } else {
+            // Marked non-mine - this should only happen on game over
+            std::cout << 'X';
+          }
         } else {
           std::cout << '?';
         }
