@@ -245,6 +245,7 @@ void AutoExplore(int r, int c) {
     if (ni >= 0 && ni < rows && nj >= 0 && nj < columns) {
       if (!visited[ni][nj] && !marked[ni][nj]) {
         if (is_mine[ni][nj]) {
+          visited[ni][nj] = true;
           game_state = -1;
           return;
         }
